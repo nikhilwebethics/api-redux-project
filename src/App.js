@@ -3,6 +3,7 @@ import './App.css';
 import {useDispatch, useSelector} from "react-redux";
 import{getPosts} from "./redux/features/postSlice";
 import Header from './Components/Header';
+import Searchbar from './Components/Searchbar';
 
 
 function App() {
@@ -12,22 +13,24 @@ function App() {
 
   const LoadMore = () =>{
     setLimit(limit+2)
-   if(limit==10){
-    var element = document.getElementById("myDIV");
-    element.remove("mystyle");
-   }
+      if(limit==10){
+        var element = document.getElementById("myDIV");
+        element.remove("mystyle");
+      }
     }
 
   const dispatch = useDispatch();
-  useEffect(()=> {
-    dispatch(getPosts());
+    useEffect(()=> {
+     dispatch(getPosts());
   }, [])
 
   return (
   <>
+  
    <Header/>
+  
     < div class="md:container md:mx-auto">
-
+    <Searchbar/>
       <h1 class="text-4xl ...">All Blogs</h1><br/>
 
       {posts.slice(0,`${limit}`).map((item , index) => (

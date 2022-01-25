@@ -1,13 +1,45 @@
-function Searchbar(){
-    return(
-        <div class="font-sans text-black  bg-white flex items-center justify-left pb-5">
-        <div class="border rounded overflow-hidden flex">
-          <input type="text" class="px-4 py-2" placeholder="Search..."/>
-          <button class="flex items-center justify-center px-4 ">
-            <svg class="h-4 w-4 text-grey-dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
-          </button>
-        </div>
-      </div>
-    );
+
+import React, { useState } from 'react'
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+  
+const Searchbar = () => {
+  
+  const [myOptions, setMyOptions] = useState([])
+  
+  const getDataFromAPI = () => {
+    console.log("Options Fetched from API")
+  
+    fetch('https://renemorozowich.com/wp-json/wp/v2/posts?filter[posts_per_page]=10&page=1&_embed').then((response) => {
+      return response.json()
+    }).then((res) => {
+      console.log(res)
+      for (var i = 0; i < res.length; i++) {
+        myOptions.push(res[i].title.rendered)
+      }
+      setMyOptions(myOptions)
+    })
+  }
+  
+  return (
+    <div className='pb-5'>
+
+      <Autocomplete
+        style={{ width: 500 }}
+        freeSolo
+        autoComplete
+        autoHighlight
+        options={myOptions}
+        renderInput={(params) => (
+          <TextField {...params}
+            onChange={getDataFromAPI}
+            variant="outlined"
+            label="Search Box"
+          />
+        )}
+      />
+    </div>
+  );
 }
+  
 export default Searchbar;
