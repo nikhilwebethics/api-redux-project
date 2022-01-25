@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -22,7 +21,7 @@ const Searchbar = () => {
   }
   
   return (
-    
+
     <div className='pb-5'>
 
       <Autocomplete
