@@ -22,6 +22,7 @@ const Searchbar = () => {
   }
   
   return (
+    
     <div className='pb-5'>
 
       <Autocomplete
