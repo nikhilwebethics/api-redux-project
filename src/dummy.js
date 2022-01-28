@@ -1,61 +1,36 @@
-import React from "react";
-class Posts extends React.Component {
-    constructor(props) {
-      super(props);
+import { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+
+
+function Postdetails(){
   
-      this.state = {
-        items: [],
-        visible: 2,
-        error: false
-      };
+    const [post, setPost] = useState();
+    const { id } = useParams();
   
-      this.loadMore = this.loadMore.bind(this);
-    }
-  
-    loadMore() {
-      this.setState((prev) => {
-        return {visible: prev.visible + 2};
-      });
-    }
-  
-    componentDidMount() {
-      fetch("https://renemorozowich.com/wp-json/wp/v2/posts?filter[posts_per_page]=10&page=1&_embed").then(
-        res => res.json()
-      ).then(res => {
-        this.setState({
-          items: res
-        });
-      }).catch(error => {
-        console.error(error);
-        this.setState({
-          error: true
-        });
-      });
-    }
-  
-    render() {
-      return (
-        <section>
-         <h1 class="text-4xl ...">All Blogs</h1><br/>
-          <div className="tiles" aria-live="polite">
-            {this.state.items.slice(0, this.state.visible).map((item, index) => {
-                return (
-                  <div className="tile fade-in" key={item.id}>
-                    <h1 className="text-2xl font-bold leading-7 text-blue-900 ">{item.title.rendered}</h1>
-                    <p>{item.date}</p>
-                    <p>Category : {item.categories}</p> 
-                    <p>{item.uagb_excerpt}</p><br/>
-                   
-                  </div>
-                );
-              })}
-            </div>
-            {this.state.visible < this.state.items.length &&
-               <button onClick={this.loadMore} type="button" className="load-more bg-red-700 p-2">Load more</button>
-            }
-          </section>
-      );
-    }
-  }
-  
- export default Posts;
+    console.log(id)
+
+    useEffect(() => {
+        getData();
+    
+          async function getData() {
+          const response = await fetch(`https://renemorozowich.com/wp-json/wp/v2/posts/${id}`);
+          const data = await response.json();
+          setPost(data);
+       
+          
+        }
+      }, []); 
+ 
+
+    return(
+
+    <>
+        <h1 className="text-2xl font-bold leading-7 text-blue-900 ">{post.title.rendered}</h1>
+        <p>{post.date}</p>
+         <p>Category : {post.categories}</p> 
+        <p>{post.uagb_excerpt}</p><br/>
+        
+    </>       
+    );
+}
+export default Postdetails;
