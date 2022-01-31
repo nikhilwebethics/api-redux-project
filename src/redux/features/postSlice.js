@@ -7,7 +7,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
  })
 
  const postSlice = createSlice(({
-     name: "posts",
+    name: "posts",
      initialState: {
          posts: [],
          loading: false,

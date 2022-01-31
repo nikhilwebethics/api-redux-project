@@ -1,35 +1,62 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import{getPosts} from ".postSlice/redux/features/postSlice";
+import{getPosts} from "../redux/features/postSlice";
+
+import { Link } from "react-router-dom";
+import Postdetails from './Postdetails';
+
+
 
 function Posts(){
 
-const {posts, loading} = useSelector ((state)=> state.post);
+  const {posts, loading} = useSelector ((state)=> state.post);
+  const[limit,setLimit]=useState(4);
 
-const dispatch = useDispatch();
+  const LoadMore = () =>{
+    setLimit(limit+2)
+      if(limit==10){
+        var element = document.getElementById("myDIV");
+        element.remove("mystyle");
+      }
+    }
 
-useEffect(()=> {
-    dispatch(getPosts());
-}, [])
+  const dispatch = useDispatch();
+    useEffect(()=> {
+     dispatch(getPosts());
+  }, [])
 
+
+  
 return(
 
-    < div class="md:container md:mx-auto">
+<> 
 
-      <h1 class="text-4xl ...">All Blogs</h1><br/>
+  <h1 className="text-4xl ...">All Blogs</h1><br/>
 
-      {posts.map((item) => (
+    {posts.slice(0,`${limit}`).map((item , key) => (
+      <>
+      
+      <h3 className="text-2xl font-bold leading-7 text-blue-900 "> 
+      
+        <Link 
+        
+          to={`/postdetails/${item.id}`}
+          component={Postdetails} >{item.title.rendered}
+        
+        </Link>
+      </h3>
 
-        <>
-        <h3 className="text-2xl font-bold leading-7 text-blue-900 ">{item.title.rendered}</h3>
-        <p>{item.date}</p>
-        <p>Category : {item.categories}</p> 
-        <p>{item.uagb_excerpt}</p><br/>
-        </>
+      <p>{item.date}</p>
+      <p>Category : {item.categories}</p> 
+      <p>{item.uagb_excerpt}</p><br/>
 
-      ))}
-    <button  type="button" className="load-more bg-red-700 p-2">Load more</button>
-    </div>
+      
+      </>
+    ))}
+    
+  <button id="myDIV" onClick={LoadMore} type="button" className="load-more bg-red-700 p-2">Load more</button>
+  
+</>
 
 );
 }

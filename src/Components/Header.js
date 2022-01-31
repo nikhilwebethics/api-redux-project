@@ -1,28 +1,28 @@
+import React from "react";
+
 function Header(){
     
-    return(
-        <div class="header-2">
-            <nav class="bg-white py-2 md:py-4">
-            <div class="container px-4 mx-auto md:flex md:items-center">
+return(
+    <div className="header-2">
+        <nav className="bg-indigo-500 py-2 md:py-4">
+            <div className="container px-4 mx-auto md:flex md:items-center">
 
-                <div class="flex justify-between items-center">
-
-                <button class="border border-solid border-gray-600 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden" id="navbar-toggle">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <div className="flex justify-between items-center">
+                    <button className="border border-solid border-gray-600 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden" id="navbar-toggle">
+                        <i className="fas fa-bars"></i>
+                    </button>
                 </div>
 
-                <div class="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
+                <div className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
 
-                <a href="#" class="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300">Login</a>
-                <a href="#" class="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300">Register</a>
-                        <a href="#" class="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300">Blogs</a>
-
-
+                    <a href="#" className="p-2 text-neutral-50 lg:px-4 md:mx-2  rounded hover:bg-gray-200 hover:text-red-700 ">Login</a>
+                    <a href="#" className="p-2 text-neutral-50 lg:px-4 md:mx-2  rounded hover:bg-gray-200 hover:text-red-700 ">Register</a>
+                    <a href="#" className="p-2 text-neutral-50 lg:px-4 md:mx-2 rounded hover:bg-gray-200 hover:text-red-700 ">Blogs</a>
+              
                 </div>
             </div>
-            </nav>
-        </div>
-    );
+        </nav>
+    </div>
+);
 }
 export default Header;
